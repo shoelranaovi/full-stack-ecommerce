@@ -2,10 +2,11 @@ const express =require("express")
 const cors = require('cors')
 const connectDB = require('./config/db')
 require('dotenv').config()
-
+const Router=require('./Routes')
 
 const app = express()
 app.use(cors())
+app.use("./api",Router)
 
 const PORT = 8080 || process.env.PORT
 
