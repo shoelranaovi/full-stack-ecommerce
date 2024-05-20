@@ -4,6 +4,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import Button from "../components/button";
 import { Link, useNavigate } from "react-router-dom";
 import { Imagetobase64 } from "../Helpers/imagetobase64";
+import SummaryApi from "../common";
 function SignUp() {
   const navigate = useNavigate();
   const [isShow, setIsShow] = useState(false);
@@ -34,6 +35,25 @@ function SignUp() {
       ...prev,
       propic: data,
     }));
+  }
+
+  async function submit(e) {
+    e.preventDefault();
+
+    if (password === confirmpass) {
+      const dataResponse = await fetch(SummaryApi.signUp.url, {
+        method: SummaryApi.signUp.method,
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(formdata),
+      });
+      const response = await dataResponse.json();
+      console.log("resonse", response);
+      console.log("response", response.message);
+    } else {
+      console.log("check your pass");
+    }
   }
 
   return (
@@ -125,7 +145,9 @@ function SignUp() {
             Forget Your Password?
           </p>
         </div>
-        <div className=" flex max-w-[120px] ml-6  hover:scale-110 transition-all cursor-pointer ">
+        <div
+          onClick={submit}
+          className=" flex max-w-[120px] ml-6  hover:scale-110 transition-all cursor-pointer ">
           <Button text="Sign Up" widths="120px" />
         </div>
         <div className="singup pb-1">

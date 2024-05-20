@@ -4,7 +4,6 @@ const usermodel = require("../models/userModel");
 async function userSignUp(req, res, next) {
   try {
     const { email, password, name } = req.body;
-    console.log(req.body);
     if (!email) {
       return res.status(400).json({ message: "Email is required" });
       // throw new Error("provide your Email address")
@@ -15,6 +14,10 @@ async function userSignUp(req, res, next) {
     }
     if (!name) {
       return res.status(400).json({ message: "name is required" });
+      // throw new Error("provide your Email address")
+    }
+    if (usermodel) {
+      return res.status(400).json({ message: "already " });
       // throw new Error("provide your Email address")
     }
 
@@ -35,7 +38,7 @@ async function userSignUp(req, res, next) {
       password: hashpass,
       name,
     });
-    const savedata = user.save();
+    const savedata = await user.save();
     res.status(200).json({
       data: savedata,
       success: true,
@@ -43,6 +46,7 @@ async function userSignUp(req, res, next) {
       massage: "user Create succesfully",
     });
   } catch (error) {
+    console.log(error);
     // return console.log(error);
     res.json({
       massage: error,
