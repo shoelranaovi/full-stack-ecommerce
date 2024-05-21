@@ -16,10 +16,6 @@ async function userSignUp(req, res, next) {
       return res.status(400).json({ message: "name is required" });
       // throw new Error("provide your Email address")
     }
-    if (usermodel) {
-      return res.status(400).json({ message: "already " });
-      // throw new Error("provide your Email address")
-    }
 
     const salt = bcrypt.genSaltSync(10);
     const hashpass = await bcrypt.hashSync(password, salt);
@@ -35,6 +31,7 @@ async function userSignUp(req, res, next) {
     // const user = new usermodel(payload);
     const user = new usermodel({
       email,
+      role: "General",
       password: hashpass,
       name,
     });
@@ -43,13 +40,13 @@ async function userSignUp(req, res, next) {
       data: savedata,
       success: true,
       error: false,
-      massage: "user Create succesfully",
+      message: "user Create succesfully",
     });
   } catch (error) {
     console.log(error);
     // return console.log(error);
     res.json({
-      massage: error,
+      message: error.message,
       error: true,
       success: false,
     });

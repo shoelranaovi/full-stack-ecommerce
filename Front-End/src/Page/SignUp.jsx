@@ -5,6 +5,7 @@ import Button from "../components/button";
 import { Link, useNavigate } from "react-router-dom";
 import { Imagetobase64 } from "../Helpers/imagetobase64";
 import SummaryApi from "../common";
+import { toast } from "react-toastify";
 function SignUp() {
   const navigate = useNavigate();
   const [isShow, setIsShow] = useState(false);
@@ -51,6 +52,14 @@ function SignUp() {
       const response = await dataResponse.json();
       console.log("resonse", response);
       console.log("response", response.message);
+
+      if (response.success) {
+        toast.success("sign up successfull");
+        navigate("/Login");
+      }
+      if (!response.success) {
+        toast.error(response.message);
+      }
     } else {
       console.log("check your pass");
     }

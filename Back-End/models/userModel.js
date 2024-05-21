@@ -15,6 +15,7 @@ const userSchema = new mongoose.Schema(
       type: String,
     },
     propic: String,
+    role: String,
   },
   {
     timestamps: true,
