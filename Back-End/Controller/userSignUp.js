@@ -3,7 +3,7 @@ const usermodel = require("../models/userModel");
 
 async function userSignUp(req, res, next) {
   try {
-    const { email, password, name } = req.body;
+    const { email, password, name, propic } = req.body;
     if (!email) {
       return res.status(400).json({ message: "Email is required" });
       // throw new Error("provide your Email address")
@@ -33,6 +33,7 @@ async function userSignUp(req, res, next) {
       email,
       role: "General",
       password: hashpass,
+      propic,
       name,
     });
     const savedata = await user.save();

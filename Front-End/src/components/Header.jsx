@@ -1,9 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import Logo from "/assest/logo.svg";
 import { FaSearch, FaCartPlus, FaRegUserCircle } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 function Header() {
   const navigate = useNavigate("");
+  const user = useSelector((state) => state);
+  console.log(user.user.user);
 
   return (
     <header

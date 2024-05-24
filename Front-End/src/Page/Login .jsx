@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import prologo from "/assest/signin.gif";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import Button from "../components/button";
 import { Link, useNavigate } from "react-router-dom";
+import SummaryApi from "../common";
+import { toast } from "react-toastify";
+import Context from "../context";
 function Login() {
   const navigate = useNavigate();
   const [isShow, setIsShow] = useState(false);
@@ -18,7 +21,31 @@ function Login() {
       [e.target.id]: e.target.value,
     }));
   }
-  console.log(formdata);
+
+  const granalcontext = useContext(Context);
+  const { fetchuserdetail } = granalcontext;
+
+  async function login(e) {
+    e.preventDefault();
+    const dataresponse = await fetch(SummaryApi.signIn.url, {
+      method: SummaryApi.signIn.method,
+      credentials: "include",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(formdata),
+    });
+
+    const response = await dataresponse.json();
+
+    if (response.success) {
+      toast.success(response.message);
+      navigate("/");
+      fetchuserdetail();
+    } else {
+      toast.error(response.message);
+    }
+  }
 
   return (
     <div className="max-w-md pt-6 bg-white flex flex-col  mx-auto rounded-sm justify-center my-2">
@@ -62,7 +89,9 @@ function Login() {
             Forget Your Password?
           </p>
         </div>
-        <div className=" flex max-w-[120px] ml-6  hover:scale-110 transition-all cursor-pointer ">
+        <div
+          onClick={login}
+          className=" flex max-w-[120px] ml-6  hover:scale-110 transition-all cursor-pointer ">
           <Button text="Login" widths="120px" />
         </div>
         <div className="singup pb-6">

@@ -62,6 +62,7 @@ function SignUp() {
       }
     } else {
       console.log("check your pass");
+      toast.error("can check your password properly");
     }
   }
 

@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 
 async function singIn(req, res) {
   const { email, password } = req.body;
-  console.log(req.body);
+
   try {
     if (!email) {
       throw new Error("plz provide email address");
@@ -13,13 +13,12 @@ async function singIn(req, res) {
       throw new Error("plz provide password");
     }
     const user = await usermodel.findOne({ email });
-    console.log(user);
 
     if (!user) {
       throw new Error("user not found");
     }
     const comparepass = await bcrypt.compareSync(password, user.password);
-    console.log(comparepass);
+
     if (comparepass) {
       const tokendata = {
         _id: user._id,

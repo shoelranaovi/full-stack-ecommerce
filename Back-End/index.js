@@ -8,7 +8,12 @@ const Router = require("./Routes");
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 app.use("/api", Router);
 
 const PORT = 8080 || process.env.PORT;

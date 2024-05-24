@@ -9,7 +9,8 @@ import Home from "./Page/Home";
 import Login from "./Page/Login ";
 import Forgetpassword from "./Page/Forgetpassword";
 import SignUp from "./Page/SignUp";
-
+import { Provider } from "react-redux";
+import { store } from "./store/store";
 const route = createBrowserRouter([
   {
     path: "/",
@@ -37,6 +38,8 @@ const route = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={route} />
+    <Provider store={store}>
+      <RouterProvider router={route} />
+    </Provider>
   </React.StrictMode>
 );
