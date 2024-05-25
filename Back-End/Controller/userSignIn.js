@@ -17,6 +17,7 @@ async function singIn(req, res) {
     if (!user) {
       throw new Error("user not found");
     }
+
     const comparepass = await bcrypt.compareSync(password, user.password);
 
     if (comparepass) {

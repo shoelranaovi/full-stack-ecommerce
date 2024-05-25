@@ -1,13 +1,29 @@
 import { useNavigate } from "react-router-dom";
 import Logo from "/assest/logo.svg";
 import { FaSearch, FaCartPlus, FaRegUserCircle } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import SummaryApi from "../common";
+import { toast } from "react-toastify";
+import { setuserdetail } from "../store/userSlice";
 
 function Header() {
   const navigate = useNavigate("");
-  const user = useSelector((state) => state);
-  console.log(user.user.user);
-
+  const user = useSelector((state) => state?.user.user);
+  console.log(user);
+  const dispatch = useDispatch();
+  const signout = async () => {
+    console.log("signout");
+    const fetchdata = await fetch(SummaryApi.usersignout.url, {
+      method: SummaryApi.usersignout.method,
+      credentials: "include",
+    });
+    const data = await fetchdata.json();
+    console.log(data);
+    if (data.success) {
+      toast.success(data.message);
+      dispatch(setuserdetail(null));
+    }
+  };
   return (
     <header
       className=" sticky top-0 z-40
@@ -34,8 +50,12 @@ function Header() {
         </div>
       </div>
       <div className="profile-card flex gap-8 items-center rounded-full">
-        <div className="logo cursor-pointer ">
-          <FaRegUserCircle size={25} />
+        <div className="logo cursor-pointer   ">
+          {user?.propic ? (
+            <img src={user.propic} className="rounded-full w-10" alt="" />
+          ) : (
+            <FaRegUserCircle size={25} />
+          )}
         </div>
         <div className="card relative cursor-pointer">
           <FaCartPlus size={25} />
@@ -43,11 +63,19 @@ function Header() {
             0
           </div>
         </div>
-        <div
-          onClick={() => navigate("/Login")}
-          className="loginbtn  bg-red-600 text-white cursor-pointer  text-l py-1 px-4 text-center rounded-full">
-          <button> Login</button>
-        </div>
+        {user ? (
+          <div
+            // onClick={() => navigate("/Login")}
+            className="loginbtn  bg-red-600 text-white cursor-pointer  text-l py-1 px-4 text-center rounded-full">
+            <button onClick={signout}> Log Out</button>
+          </div>
+        ) : (
+          <div
+            onClick={() => navigate("/Login")}
+            className="loginbtn  bg-red-600 text-white cursor-pointer  text-l py-1 px-4 text-center rounded-full">
+            <button> Login</button>
+          </div>
+        )}
       </div>
     </header>
   );

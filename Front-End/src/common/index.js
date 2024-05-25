@@ -13,6 +13,10 @@ const SummaryApi = {
     url: `${backendDomin}/api/user-detail`,
     method: "get",
   },
+  usersignout: {
+    url: `${backendDomin}/api//signout`,
+    method: "get",
+  },
 };
 
 export default SummaryApi;

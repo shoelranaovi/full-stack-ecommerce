@@ -5,9 +5,7 @@ async function authtoken(req, res, next) {
     const token = req.cookies?.token;
 
     if (!token) {
-      res
-        .status(401)
-        .json({ message: "user not found", success: false, error: true });
+      throw new Error("user Not yet found");
     }
     jwt.verify(token, process.env.SECRET_KEY, function (err, decoded) {
       req.user = decoded;

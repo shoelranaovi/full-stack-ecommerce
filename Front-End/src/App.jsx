@@ -16,9 +16,12 @@ function App() {
       method: SummaryApi.userDetail.method,
       credentials: "include",
     });
-    const user = await userresponse.json();
+    const user = await userresponse?.json();
+
     if (user.success) {
       dispatch(setuserdetail(user.data));
+    } else {
+      console.log(user.message);
     }
   }
 
