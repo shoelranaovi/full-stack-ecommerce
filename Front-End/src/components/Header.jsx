@@ -5,9 +5,11 @@ import { useDispatch, useSelector } from "react-redux";
 import SummaryApi from "../common";
 import { toast } from "react-toastify";
 import { setuserdetail } from "../store/userSlice";
+import { useState } from "react";
 
 function Header() {
   const navigate = useNavigate("");
+  const [menu, setMenu] = useState(false);
   const user = useSelector((state) => state?.user.user);
   console.log(user);
   const dispatch = useDispatch();
@@ -49,12 +51,23 @@ function Header() {
           <FaSearch />
         </div>
       </div>
-      <div className="profile-card flex gap-8 items-center rounded-full">
-        <div className="logo cursor-pointer   ">
-          {user?.propic ? (
-            <img src={user.propic} className="rounded-full w-10" alt="" />
-          ) : (
-            <FaRegUserCircle size={25} />
+      <div className=" left-icon  flex gap-8  items-center rounded-full">
+        <div className=" profile-icon-group relative flex flex-col items-center  justify-center">
+          <div>
+            <div
+              onClick={() => setMenu((prev) => !prev)}
+              className=" profile-icon cursor-pointer   ">
+              {user?.propic ? (
+                <img src={user.propic} className="rounded-full w-10" alt="" />
+              ) : (
+                <FaRegUserCircle size={25} />
+              )}
+            </div>
+          </div>
+          {menu && (
+            <div className=" absolute cursor-pointer font-bold hover:bg-slate-100 ease-in-out  bg-slate-200 top-14 p-1 w-[150px] flex justify-center">
+              <div onClick={() => navigate("/admin-pannel")}>Admin Pannel</div>
+            </div>
           )}
         </div>
         <div className="card relative cursor-pointer">

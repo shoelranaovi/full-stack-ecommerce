@@ -11,6 +11,7 @@ import Forgetpassword from "./Page/Forgetpassword";
 import SignUp from "./Page/SignUp";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
+import AdminPannel from "./Page/Admin-pannel";
 const route = createBrowserRouter([
   {
     path: "/",
@@ -31,6 +32,10 @@ const route = createBrowserRouter([
       {
         path: "signup",
         element: <SignUp />,
+      },
+      {
+        path: "admin-pannel",
+        element: <AdminPannel />,
       },
     ],
   },
