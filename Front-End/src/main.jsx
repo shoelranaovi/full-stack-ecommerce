@@ -12,6 +12,8 @@ import SignUp from "./Page/SignUp";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
 import AdminPannel from "./Page/Admin-pannel";
+import Alluser from "./Page/All-user";
+import Allproducts from "./Page/Allproducts";
 const route = createBrowserRouter([
   {
     path: "/",
@@ -36,6 +38,16 @@ const route = createBrowserRouter([
       {
         path: "admin-pannel",
         element: <AdminPannel />,
+        children: [
+          {
+            path: "all-user",
+            element: <Alluser />,
+          },
+          {
+            path: "all-products",
+            element: <Allproducts />,
+          },
+        ],
       },
     ],
   },

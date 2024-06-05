@@ -11,7 +11,6 @@ function Header() {
   const navigate = useNavigate("");
   const [menu, setMenu] = useState(false);
   const user = useSelector((state) => state?.user.user);
-  console.log(user);
   const dispatch = useDispatch();
   const signout = async () => {
     console.log("signout");
@@ -39,7 +38,7 @@ function Header() {
           alt="header logo"
         />
       </div>
-      <div className=" hidden search lg:flex border items-center w-[420px] h-10  rounded-full ">
+      <div className=" hidden search lg:flex border items-center w-[420px]  rounded-full ">
         <input
           className="bg-transparent w-full h-full border-none focus:rounded-l-full focus-within:shadow-2xl "
           type="search"
@@ -47,18 +46,22 @@ function Header() {
           id="search-item"
           placeholder="Search Product Here "
         />
-        <div className="icon cursor-pointer text-red-50 text-xl flex items-center justify-center h-full w-20 bg-red-800 rounded-r-full  ">
+        <div className="icon cursor-pointer text-red-50 text-xl flex items-center justify-center h-10 w-20 bg-red-800 rounded-r-full  ">
           <FaSearch />
         </div>
       </div>
       <div className=" left-icon  flex gap-8  items-center rounded-full">
-        <div className=" profile-icon-group relative flex flex-col items-center  justify-center">
+        <div className=" profile-icon-group relative flex flex-col items-center   justify-center">
           <div>
             <div
               onClick={() => setMenu((prev) => !prev)}
-              className=" profile-icon cursor-pointer   ">
+              className=" profile-icon cursor-pointer    ">
               {user?.propic ? (
-                <img src={user.propic} className="rounded-full w-10" alt="" />
+                <img
+                  src={user.propic}
+                  className="rounded-full h-12 w-10"
+                  alt=""
+                />
               ) : (
                 <FaRegUserCircle size={25} />
               )}
