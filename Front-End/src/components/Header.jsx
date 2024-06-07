@@ -10,7 +10,9 @@ import { useState } from "react";
 function Header() {
   const navigate = useNavigate("");
   const [menu, setMenu] = useState(false);
+
   const user = useSelector((state) => state?.user.user);
+
   const dispatch = useDispatch();
   const signout = async () => {
     console.log("signout");

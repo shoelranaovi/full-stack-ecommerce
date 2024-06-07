@@ -21,6 +21,10 @@ const SummaryApi = {
     url: `${backendDomin}/api/users`,
     method: "get",
   },
+  updateusers: {
+    url: `${backendDomin}/api/updateuser`,
+    method: "post",
+  },
 };
 
 export default SummaryApi;

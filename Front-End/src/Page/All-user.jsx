@@ -6,6 +6,11 @@ import Updateuser from "../components/updateuser";
 function Alluser() {
   const [users, setUsers] = useState();
   const [edit, setEdit] = useState(false);
+  const [updateuser, setUpdateuser] = useState({
+    name: "",
+    email: "",
+    role: "",
+  });
 
   const alluser = async () => {
     const fetchdata = await fetch(SummaryApi.alluser.url, {
@@ -47,7 +52,10 @@ function Alluser() {
                 <div className="w-[30px] h-[30px] flex justify-center items-center hover:bg-green-800 transition-all rounded-full">
                   <FaPen
                     className="cursor-pointer"
-                    onClick={() => setEdit(true)}
+                    onClick={() => {
+                      setUpdateuser(item);
+                      setEdit(true);
+                    }}
                   />
                 </div>
               </td>
@@ -55,7 +63,16 @@ function Alluser() {
           ))}
         </tbody>
       </table>
-      {edit && <Updateuser onclose={() => setEdit(false)} />}
+      {edit && (
+        <Updateuser
+          onclose={() => setEdit(false)}
+          name={updateuser.name}
+          email={updateuser.email}
+          role={updateuser.role}
+          userId={updateuser._id}
+          fatch={alluser}
+        />
+      )}
     </div>
   );
 }
